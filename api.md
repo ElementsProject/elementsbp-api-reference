@@ -60,6 +60,7 @@ The methods in italics exist in Bitcoin Core, but are modified for elements.
 
 ### Utility
 - [createblindedaddress][]
+- [getblockstats][]
 - *[getrawtransaction][]*
 - *[validateaddress][]*
 
@@ -557,6 +558,120 @@ elements-cli createblindedaddress \
 
 ```text
 AgMsLUciLEiMJo7nS5UzgP8b3VCfviduNZtQjZd4vZ5UR1Xyskxhgb3QUsXyctiYn2i28e6DYqdW4aYY
+```
+
+## getblockstats
+
+The `getblockstats` RPC lets you compute per block statistics for a given window.
+All amounts are in satoshis. It won't work for some heights with pruning.
+
+*Parameter #1---the block hash or height*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>hash_or_height</td>
+   <td>numeric or string (hex)</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>The block hash or height of the target block. If height, negative values 
+   count back from the current tip</td>
+  </tr>
+ </tbody>
+</table>
+
+*Parameter #2---the values to plot*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>stats</td>
+   <td>array</td>
+   <td>optional</td>
+   <td>Array of values to plot, by default all values. Array of strings, see
+   results for possible values.</td>
+  </tr>
+ </tbody>
+</table>
+
+*Result---the statistics for the given block*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td markdown="block">
+   
+   `result`
+   
+   </td>
+   <td>json object</td>
+   <td>A JSON object with all the block statistics.</td>
+  </tr>
+ </tbody>
+</table>
+
+*Example*
+
+```bash
+elements-cli getblockstats 1000 '["avgfee", "maxfee", "txs"]'
+```
+
+*Result:*
+
+```text
+{
+  "avgfee": xxxxx,          (numeric) Average fee in the block"
+  "avgfeerate": xxxxx,      (numeric) Average feerate (in satoshis per virtual byte)"
+  "avgtxsize": xxxxx,       (numeric) Average transaction size"
+  "blockhash": xxxxx,       (string) The block hash (to check for potential reorgs)"
+  "height": xxxxx,          (numeric) The height of the block"
+  "ins": xxxxx,             (numeric) The number of inputs (excluding coinbase)"
+  "maxfee": xxxxx,          (numeric) Maximum fee in the block"
+  "maxfeerate": xxxxx,      (numeric) Maximum feerate (in satoshis per virtual byte)"
+  "maxtxsize": xxxxx,       (numeric) Maximum transaction size"
+  "medianfee": xxxxx,       (numeric) Truncated median fee in the block"
+  "medianfeerate": xxxxx,   (numeric) Truncated median feerate (in satoshis per virtual byte)"
+  "mediantime": xxxxx,      (numeric) The block median time past"
+  "mediantxsize": xxxxx,    (numeric) Truncated median transaction size"
+  "minfee": xxxxx,          (numeric) Minimum fee in the block"
+  "minfeerate": xxxxx,      (numeric) Minimum feerate (in satoshis per virtual byte)"
+  "mintxsize": xxxxx,       (numeric) Minimum transaction size"
+  "outs": xxxxx,            (numeric) The number of outputs"
+  "subsidy": xxxxx,         (numeric) The block subsidy"
+  "swtotal_size": xxxxx,    (numeric) Total size of all segwit transactions"
+  "swtotal_weight": xxxxx,  (numeric) Total weight of all segwit transactions divided by segwit scale factor (4)"
+  "swtxs": xxxxx,           (numeric) The number of segwit transactions"
+  "time": xxxxx,            (numeric) The block time"
+  "total_out": xxxxx,       (numeric) Total amount in all outputs (excluding coinbase and thus reward [ie subsidy + totalfee])"
+  "total_size": xxxxx,      (numeric) Total size of all non-coinbase transactions"
+  "total_weight": xxxxx,    (numeric) Total weight of all non-coinbase transactions divided by segwit scale factor (4)"
+  "totalfee": xxxxx,        (numeric) The fee total"
+  "txs": xxxxx,             (numeric) The number of transactions (excluding coinbase)"
+  "utxo_increase": xxxxx,   (numeric) The increase/decrease in the number of unspent outputs"
+  "utxo_size_inc": xxxxx    (numeric) The increase/decrease in size for the utxo index (not discounting op_return and similar)"
+}
 ```
 
 ## createrawtransaction
@@ -9840,6 +9955,7 @@ Elements, where the minimum value is 0.00000001.
 [rawblindrawtransaction]: #rawblindrawtransaction
 [sendrawtransaction]: #sendrawtransaction
 [createblindedaddress]: #createblindedaddress
+[getblockstats]: #getblockstats
 [getrawtransaction]: #getrawtransaction
 [validateaddress]: #validateaddress
 [claimpegin]: #claimpegin
