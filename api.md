@@ -43,7 +43,8 @@ bitcoin-cli help getblockchaininfo
 
 The following short sections categorize the RPCs in this document.  For
 a list of RPCs available in Bitcoin Core and which are not changed in
-Elements, please see the [Bitcoin.org RPC quick reference][]
+Elements, please see the [Bitcoin.org RPC quick reference][].
+The methods in italics exist in Bitcoin Core, but are modified for elements.
 
 ### Generating
 - [combineblocksigs][]
@@ -52,15 +53,17 @@ Elements, please see the [Bitcoin.org RPC quick reference][]
 
 ### Raw transactions
 - [blindrawtransaction][]
-- [createrawtransaction][]
-- [decoderawtransaction][]
+- *[createrawtransaction][]*
+- *[decoderawtransaction][]*
 - [rawblindrawtransaction][]
-- [sendrawtransaction][]
+- *[sendrawtransaction][]*
 
 ### Utility
 - [createblindedaddress][]
-- [getrawtransaction][]
-- [validateaddress][]
+- [getblockstats][]
+- *[getrawtransaction][]*
+- *[validateaddress][]*
+- [tweakfedpegscript][]
 
 ### Wallet
 - [claimpegin][]
@@ -68,18 +71,18 @@ Elements, please see the [Bitcoin.org RPC quick reference][]
 - [dumpassetlabels][]
 - [dumpblindingkey][]
 - [dumpissuanceblindingkey][]
-- [getbalance][]
+- *[getbalance][]*
 - [getpeginaddress][]
-- [gettransaction][]
-- [getunconfirmedbalance][]
-- [getwalletinfo][]
+- *[gettransaction][]*
+- *[getunconfirmedbalance][]*
+- *[getwalletinfo][]*
 - [importissuanceblindingkey][]
 - [issueasset][]
 - [listissuances][]
-- [listtransactions][]
-- [listunspent][]
+- *[listtransactions][]*
+- *[listunspent][]*
 - [reissueasset][]
-- [sendtoaddress][]
+- *[sendtoaddress][]*
 - [sendtomainchain][]
 - [signblock][]
 
@@ -556,6 +559,120 @@ elements-cli createblindedaddress \
 
 ```text
 AgMsLUciLEiMJo7nS5UzgP8b3VCfviduNZtQjZd4vZ5UR1Xyskxhgb3QUsXyctiYn2i28e6DYqdW4aYY
+```
+
+## getblockstats
+
+The `getblockstats` RPC lets you compute per block statistics for a given window.
+All amounts are in satoshis. It won't work for some heights with pruning.
+
+*Parameter #1---the block hash or height*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>hash_or_height</td>
+   <td>numeric or string (hex)</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>The block hash or height of the target block. If height, negative values 
+   count back from the current tip</td>
+  </tr>
+ </tbody>
+</table>
+
+*Parameter #2---the values to plot*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>stats</td>
+   <td>array</td>
+   <td>optional</td>
+   <td>Array of values to plot, by default all values. Array of strings, see
+   results for possible values.</td>
+  </tr>
+ </tbody>
+</table>
+
+*Result---the statistics for the given block*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td markdown="block">
+   
+   `result`
+   
+   </td>
+   <td>json object</td>
+   <td>A JSON object with all the block statistics.</td>
+  </tr>
+ </tbody>
+</table>
+
+*Example*
+
+```bash
+elements-cli getblockstats 1000 '["avgfee", "maxfee", "txs"]'
+```
+
+*Result:*
+
+```text
+{
+  "avgfee": xxxxx,          (numeric) Average fee in the block"
+  "avgfeerate": xxxxx,      (numeric) Average feerate (in satoshis per virtual byte)"
+  "avgtxsize": xxxxx,       (numeric) Average transaction size"
+  "blockhash": xxxxx,       (string) The block hash (to check for potential reorgs)"
+  "height": xxxxx,          (numeric) The height of the block"
+  "ins": xxxxx,             (numeric) The number of inputs (excluding coinbase)"
+  "maxfee": xxxxx,          (numeric) Maximum fee in the block"
+  "maxfeerate": xxxxx,      (numeric) Maximum feerate (in satoshis per virtual byte)"
+  "maxtxsize": xxxxx,       (numeric) Maximum transaction size"
+  "medianfee": xxxxx,       (numeric) Truncated median fee in the block"
+  "medianfeerate": xxxxx,   (numeric) Truncated median feerate (in satoshis per virtual byte)"
+  "mediantime": xxxxx,      (numeric) The block median time past"
+  "mediantxsize": xxxxx,    (numeric) Truncated median transaction size"
+  "minfee": xxxxx,          (numeric) Minimum fee in the block"
+  "minfeerate": xxxxx,      (numeric) Minimum feerate (in satoshis per virtual byte)"
+  "mintxsize": xxxxx,       (numeric) Minimum transaction size"
+  "outs": xxxxx,            (numeric) The number of outputs"
+  "subsidy": xxxxx,         (numeric) The block subsidy"
+  "swtotal_size": xxxxx,    (numeric) Total size of all segwit transactions"
+  "swtotal_weight": xxxxx,  (numeric) Total weight of all segwit transactions divided by segwit scale factor (4)"
+  "swtxs": xxxxx,           (numeric) The number of segwit transactions"
+  "time": xxxxx,            (numeric) The block time"
+  "total_out": xxxxx,       (numeric) Total amount in all outputs (excluding coinbase and thus reward [ie subsidy + totalfee])"
+  "total_size": xxxxx,      (numeric) Total size of all non-coinbase transactions"
+  "total_weight": xxxxx,    (numeric) Total weight of all non-coinbase transactions divided by segwit scale factor (4)"
+  "totalfee": xxxxx,        (numeric) The fee total"
+  "txs": xxxxx,             (numeric) The number of transactions (excluding coinbase)"
+  "utxo_increase": xxxxx,   (numeric) The increase/decrease in the number of unspent outputs"
+  "utxo_size_inc": xxxxx    (numeric) The increase/decrease in size for the utxo index (not discounting op_return and similar)"
+}
 ```
 
 ## createrawtransaction
@@ -9153,6 +9270,79 @@ error message:
 already have block
 ```
 
+## tweakfedpegscript
+
+The `tweakfedpegscript` RPC lets you tweak a tx script for the federated peg.
+
+*Parameter #1---the script to tweak the fedpegscript with*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>Claim script</td>
+   <td>string</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>Script to tweak the fedpegscript with. For example obtained as a result of getpeginaddress.</td>
+  </tr>
+ </tbody>
+</table>
+
+*Result---the statistics for the given block*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td markdown="block">
+   
+   `result`
+   
+   </td>
+   <td>object</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>An object containing the results of the
+   operation</td>
+  </tr>
+
+  <tr>
+   <td markdown="block">
+   
+   →<br>`script`
+   
+   </td>
+   <td>string (hex)</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>The fedpegscript tweaked with claim_script</td>
+  </tr>
+
+  <tr>
+   <td markdown="block">
+   
+   →<br>`address`
+   
+   </td>
+   <td>string</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>The address corresponding to the tweaked fedpegscript</td>
+  </tr>
+ </tbody>
+</table>
+
 ## validateaddress
 
 The `validateaddress` RPC returns information about the given address.
@@ -9764,6 +9954,7 @@ Result:
   "account": "",                                                                                            "hdkeypath": "m/0'/0'/7'",                                                                                "hdmasterkeyid": "12d5270d68f38b7d535247ac6885e058ed7cb19d"                                             }      
 ```
 
+
 [bcc createrawtransaction]: https://bitcoin.org/en/developer-reference#createrawtransaction
 [confidential assets]: https://blockstream.com/bitcoin17-final41.pdf
 
@@ -9839,8 +10030,10 @@ Elements, where the minimum value is 0.00000001.
 [rawblindrawtransaction]: #rawblindrawtransaction
 [sendrawtransaction]: #sendrawtransaction
 [createblindedaddress]: #createblindedaddress
+[getblockstats]: #getblockstats
 [getrawtransaction]: #getrawtransaction
 [validateaddress]: #validateaddress
+[tweakfedpegscript]: #tweakfedpegscript
 [claimpegin]: #claimpegin
 [destroyamount]: #destroyamount
 [dumpassetlabels]: #dumpassetlabels
