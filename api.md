@@ -43,7 +43,8 @@ bitcoin-cli help getblockchaininfo
 
 The following short sections categorize the RPCs in this document.  For
 a list of RPCs available in Bitcoin Core and which are not changed in
-Elements, please see the [Bitcoin.org RPC quick reference][]
+Elements, please see the [Bitcoin.org RPC quick reference][].
+The methods in italics exist in Bitcoin Core, but are modified for elements.
 
 ### Generating
 - [combineblocksigs][]
@@ -52,15 +53,15 @@ Elements, please see the [Bitcoin.org RPC quick reference][]
 
 ### Raw transactions
 - [blindrawtransaction][]
-- [createrawtransaction][]
-- [decoderawtransaction][]
+- *[createrawtransaction][]*
+- *[decoderawtransaction][]*
 - [rawblindrawtransaction][]
-- [sendrawtransaction][]
+- *[sendrawtransaction][]*
 
 ### Utility
 - [createblindedaddress][]
-- [getrawtransaction][]
-- [validateaddress][]
+- *[getrawtransaction][]*
+- *[validateaddress][]*
 
 ### Wallet
 - [claimpegin][]
@@ -68,18 +69,18 @@ Elements, please see the [Bitcoin.org RPC quick reference][]
 - [dumpassetlabels][]
 - [dumpblindingkey][]
 - [dumpissuanceblindingkey][]
-- [getbalance][]
+- *[getbalance][]*
 - [getpeginaddress][]
-- [gettransaction][]
-- [getunconfirmedbalance][]
-- [getwalletinfo][]
+- *[gettransaction][]*
+- *[getunconfirmedbalance][]*
+- *[getwalletinfo][]*
 - [importissuanceblindingkey][]
 - [issueasset][]
 - [listissuances][]
-- [listtransactions][]
-- [listunspent][]
+- *[listtransactions][]*
+- *[listunspent][]*
 - [reissueasset][]
-- [sendtoaddress][]
+- *[sendtoaddress][]*
 - [sendtomainchain][]
 - [signblock][]
 
