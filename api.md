@@ -7528,8 +7528,48 @@ Element's API changes are emphasized in bold.
  </tbody>
 </table>
 
+*Parameter #4---include unsafe*
 
-**Parameter #4---asset filter**
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td markdown="span">
+
+   Include unsafe
+
+   </td>
+
+   <td markdown="span">
+
+   boolean
+
+   </td>
+
+   <td markdown="span">
+
+   Optional<br>(0 or 1)
+
+   </td>
+
+   <td markdown="span">
+
+   If true, Include outputs that are not safe to spend, because they come from unconfirmed untrusted transactions or unconfirmed replacement transactions (cases where we are less sure that a conflictingtransaction won't be mined).
+
+   </td>
+
+  </tr>
+ </tbody>
+</table>
+
+**Parameter #5---asset filter**
 
 <table>
  <thead>
@@ -7562,7 +7602,7 @@ Element's API changes are emphasized in bold.
 
    <td markdown="span">
 
-   **An asset identifier or label to only return entries for that asset.  The default is `'*'` which lists all assets**
+   **An asset identifier or label to only return entries for that asset.  The default is blank which lists all assets**
 
    </td>
 
