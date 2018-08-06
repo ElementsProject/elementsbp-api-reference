@@ -63,6 +63,7 @@ The methods in italics exist in Bitcoin Core, but are modified for elements.
 - [getblockstats][]
 - *[getrawtransaction][]*
 - *[validateaddress][]*
+- [tweakfedpegscript][]
 
 ### Wallet
 - [claimpegin][]
@@ -9269,6 +9270,79 @@ error message:
 already have block
 ```
 
+## tweakfedpegscript
+
+The `tweakfedpegscript` RPC lets you tweak a tx script for the federated peg.
+
+*Parameter #1---the script to tweak the fedpegscript with*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>Claim script</td>
+   <td>string</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>Script to tweak the fedpegscript with. For example obtained as a result of getpeginaddress.</td>
+  </tr>
+ </tbody>
+</table>
+
+*Result---the statistics for the given block*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td markdown="block">
+   
+   `result`
+   
+   </td>
+   <td>object</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>An object containing the results of the
+   operation</td>
+  </tr>
+
+  <tr>
+   <td markdown="block">
+   
+   →<br>`script`
+   
+   </td>
+   <td>string (hex)</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>The fedpegscript tweaked with claim_script</td>
+  </tr>
+
+  <tr>
+   <td markdown="block">
+   
+   →<br>`address`
+   
+   </td>
+   <td>string</td>
+   <td>Required<br />(exactly 1)</td>
+   <td>The address corresponding to the tweaked fedpegscript</td>
+  </tr>
+ </tbody>
+</table>
+
 ## validateaddress
 
 The `validateaddress` RPC returns information about the given address.
@@ -9880,6 +9954,7 @@ Result:
   "account": "",                                                                                            "hdkeypath": "m/0'/0'/7'",                                                                                "hdmasterkeyid": "12d5270d68f38b7d535247ac6885e058ed7cb19d"                                             }      
 ```
 
+
 [bcc createrawtransaction]: https://bitcoin.org/en/developer-reference#createrawtransaction
 [confidential assets]: https://blockstream.com/bitcoin17-final41.pdf
 
@@ -9958,6 +10033,7 @@ Elements, where the minimum value is 0.00000001.
 [getblockstats]: #getblockstats
 [getrawtransaction]: #getrawtransaction
 [validateaddress]: #validateaddress
+[tweakfedpegscript]: #tweakfedpegscript
 [claimpegin]: #claimpegin
 [destroyamount]: #destroyamount
 [dumpassetlabels]: #dumpassetlabels
