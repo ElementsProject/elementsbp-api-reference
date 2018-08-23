@@ -9156,7 +9156,7 @@ address on the mainchain.
 *Example*
 
 ```bash
-elements-cli sendtomainchain mgWEy4vBJSHt3mC8C2SEWJQitifb4qeZQq
+elements-cli sendtomainchain mgWEy4vBJSHt3mC8C2SEWJQitifb4qeZQq 1
 ```
 
 Result:
