@@ -9126,6 +9126,27 @@ address on the mainchain.
  </tbody>
 </table>
 
+*Parameter #3---automatic fee subtraction*
+
+<table>
+ <thead>
+  <tr>
+   <th>Name</th>
+   <th>Type</th>
+   <th>Presence</th>
+   <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>Subtract Fee From Amount</td>
+   <td>boolean</td>
+   <td>Optional (0 or 1)</td>
+   <td>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. Default is <code>false</code></td>
+  </tr>
+ </tbody>
+</table>
+
 *Result---txid of the sidechain transaction*
 
 <table>
