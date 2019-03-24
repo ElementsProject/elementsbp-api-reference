@@ -76,6 +76,7 @@ The methods in italics exist in Bitcoin Core, but are modified for elements.
 - *[gettransaction][]*
 - *[getunconfirmedbalance][]*
 - *[getwalletinfo][]*
+- [importblindingkey][]
 - [importissuanceblindingkey][]
 - [issueasset][]
 - [listissuances][]
@@ -5804,7 +5805,7 @@ Result:
 }
 ```
 
-# importblindingkey
+## importblindingkey
 
 The `importblindingkey` RPC imports a private blinding key in hex for a
 Confidential Transaction (CT) address.
